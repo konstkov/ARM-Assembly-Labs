@@ -10,10 +10,15 @@ __attribute__(( naked )) int asm_test(int v0, int v1, int v2, int v3)
 	(
 			"push {r4, r5, r6, r7} \n" // do not remove
 			// do not add any code before this comment
-			"add r3, r2, r1 \n" // example assembly code replace with your own code
-			"mov r0, r3 \n" // example assembly code replace with your own code
+			//"add r3, r2, r1 \n" // example assembly code replace with your own code
+			//"mov r0, r3 \n" // example assembly code replace with your own code
 			// add more code here
-
+			// Write a program that computes M0 = (M0 + M1* M1) * (M3 + M1 * M1) + M2
+			"mul r1, r1, r1 \n" //multiply r1 with r1 and store in r1
+			"add r0, r0, r1 \n" //add r0 and r1 and store in r0 , r0 now has (M0 + M1* M1)
+			"add r3, r3, r1 \n" //add r3 and r1 and store in r3 , r3 now has (M3 + M1 * M1)
+			"mul r3 ,r0, r3 \n" // multiply r0 and r3 and store in r3
+			"add r0, r3, r2 \n" // add r3 and r2 and store in r0
 			// do not add any code after this comment
 			"pop {r4, r5, r6, r7} \n" // do not remove
 			"bx lr \n" // do not remove
