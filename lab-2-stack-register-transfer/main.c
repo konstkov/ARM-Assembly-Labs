@@ -8,10 +8,20 @@ __attribute__(( naked )) void asm_test(int *a, int *b, int *c, int *d)
   (
 	"push {r4, r5, r6, r7} \n" // do not remove
 
-	"ldr r7, [r0] \n" // example assembly code - replace with your own code
-	"add r4, r7, r2 \n" // example assembly code replace with your own code
+	//"ldr r7, [r0] \n" // example assembly code - replace with your own code
+	//"add r4, r7, r2 \n" // example assembly code replace with your own code
+	//Write a program that computes M0 = (M0 + M1 * M1) * (M3 + M1 * M1) + M2.
 	// add more code here
-
+        "ldr r7, [r1] \n" // copy a word from mem. addr. r1 and store it in r7
+        "mul r7, r7, r7 \n" // multiply r7 by r7 and store in r7
+        "ldr r6, [r0] \n" // copy a word from mem. add.r r0 and store it in r6
+        "add r6, r6, r7 \n" // add r7 and r6 and store in r6 (M0 + M1 * M1)
+        "ldr r1, [r3] \n" // copy a word from mem. add.r r3 and store it in r1
+        "add r7, r1, r7 \n" // add r1 and r7 and store in r7 (M3 + M1 * M1)
+        "mul r7, r6, r7 \n" // multiply r6 and r7 and store in r7 (M0 + M1 * M1) * (M3 + M1 * M1)
+        "ldr r6, [r2] \n" // copy a word from mem. addr. r2 and store it in r6
+        "add r7, r6, r7 \n" // add r6 and r7 and store in r7
+        "str r7, [r0] \n"
 	"pop {r4, r5, r6, r7} \n" // do not remove
 	"bx lr \n" // do not remove
   );
